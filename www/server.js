@@ -37,13 +37,13 @@ const util_1 = require("./util/util");
     // RETURNS
     //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
     /**************************************************************************** */
-    app.get("/filteredimage", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let image_url = req.query.image_url.toString();
+    app.get("/filteredimage", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        const image_url = request.query.image_url.toString();
         if (!image_url) {
-            res.status(400).send("image_url is required");
+            response.status(400).send("image_url is required");
         }
         const filteredpath = yield (0, util_1.filterImageFromURL)(image_url);
-        res.status(200).sendFile(filteredpath, () => {
+        response.status(200).sendFile(filteredpath, () => {
             (0, util_1.deleteLocalFiles)([filteredpath]);
         });
     }));
